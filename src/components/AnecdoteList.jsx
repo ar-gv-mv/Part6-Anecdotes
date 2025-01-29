@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import {voting} from '../reducers/anecdoteReducer'
+import { visibilityNotification} from '../reducers/actions'
 
 const AnecdoteList = () => {
 
@@ -16,9 +17,11 @@ const AnecdoteList = () => {
 
   const dispatch = useDispatch()
 
-  const vote = (id) => {
+  const vote = (id, content) => {
     console.log('vote', id)
     dispatch(voting(id))
+    console.log(content)
+    dispatch(visibilityNotification(content, 5))
   }
 
   return (
@@ -30,7 +33,7 @@ const AnecdoteList = () => {
             </div>
             <div>
                 has {anecdote.votes}
-                <button onClick={() => vote(anecdote.id)}>vote</button>
+                <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
             </div>
             </div>
         )}
